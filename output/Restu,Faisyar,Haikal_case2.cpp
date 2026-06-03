@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// 1. KELAS MATAKULIAH (Menunjukkan Encapsulation)
+// [ENCAPSULATION] - Pembuat: Faisyar
 class MataKuliah {
 private:
     string namaMK;
@@ -20,29 +20,29 @@ public:
         nilaiAngka = nilai;
     }
 
-    // Getter methods
+    // Getter methods untuk mengakses data private secara aman
     string getNamaMK() { return namaMK; }
     int getSKS() { return sks; }
     double getNilaiAngka() { return nilaiAngka; }
 };
 
-// 2. KELAS INDUK 1: MahasiswaBase (Menunjukkan Encapsulation)
+// [ENCAPSULATION] - Pembuat: Faisyar
 class MahasiswaBase {
 private:
     string nama;
     string nim;
 
 public:
-    // Setter
+    // Setter untuk mengisi data
     void setNama(string n) { nama = n; }
     void setNim(string n) { nim = n; }
 
-    // Getter
+    // Getter untuk mengambil data
     string getNama() { return nama; }
     string getNim() { return nim; }
 };
 
-// 3. KELAS INDUK 2: Penilaian
+// [INHERITANCE] - Pembuat: Haikal
 class Penilaian {
 protected:
     // Fungsi untuk menghitung Indeks Prestasi (IP) per mata kuliah
@@ -56,7 +56,7 @@ protected:
         else if (nilai >= 61) return 2.50; // C+
         else if (nilai >= 51) return 2.00; // C
         else if (nilai >= 41) return 1.00; // D
-        else return 0.0;                  //  E
+        else return 0.0;                   // E
     }
 
     string konversiKeHuruf(double nilai) {
@@ -69,12 +69,11 @@ protected:
         else if (nilai >= 61) return "C+";// C+
         else if (nilai >= 51) return "C"; // C
         else if (nilai >= 41) return "D"; // D
-        else return "E";                  //  E
+        else return "E";                  // E
     }
 };
 
-// 4. KELAS TURUNAN: TranskripMahasiswa 
-// (Menunjukkan MULTIPLE INHERITANCE dari MahasiswaBase dan Penilaian)
+// [INHERITANCE] Pembuat: Haikal | [MULTIPLE INHERITANCE] Pembuat: Restu
 class TranskripMahasiswa : public MahasiswaBase, public Penilaian {
 private:
     vector<MataKuliah> daftarMK; // Relasi 'Has-A' (Satu mahasiswa punya banyak MK)
@@ -90,6 +89,7 @@ public:
         int totalSKS = 0;
 
         for (auto& mk : daftarMK) {
+            // Memanggil fungsi konversiKeBobot hasil warisan dari kelas Penilaian
             double bobot = konversiKeBobot(mk.getNilaiAngka());
             totalNilaiBobot += (bobot * mk.getSKS());
             totalSKS += mk.getSKS();
@@ -103,6 +103,7 @@ public:
         cout << "\n======================================================\n";
         cout << "                 KARTU HASIL STUDI (KHS)              \n";
         cout << "======================================================\n";
+        // Memanggil fungsi getNama() dan getNim() hasil warisan dari MahasiswaBase
         cout << "Nama Mahasiswa : " << getNama() << "\n";
         cout << "NIM            : " << getNim() << "\n";
         cout << "------------------------------------------------------\n";
